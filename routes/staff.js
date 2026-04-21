@@ -79,6 +79,16 @@ router.post('/issue-book', async (req, res) => {
     if (!book || book.availableCopies <= 0) {
       return res.status(400).json({ message: 'Book not available' });
     }
+
+    const alreadyIssued = await IssuedBook.findOne({
+      bookId,
+      studentId: student._id,
+      returned: false
+    });
+
+    if(alreadyIssued) {
+      return res.status(400).json({message : 'Book already issued'});
+    }
     
     const settings = await Setting.findOne();
     const dueDate = new Date();
