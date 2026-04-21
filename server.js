@@ -10,7 +10,7 @@ const app = express();
 // Middleware
 app.use(cors(
     {
-  origin: '*',
+  origin: ['http://localhost:3000', 'https://librarymanagementfrontend-lac.vercel.app'],
   credentials: true,
 }
 ));
